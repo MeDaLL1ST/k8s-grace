@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graceful-app-server-shutdown
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: graceful-app-server-shutdown
+  template:
+    metadata:
+      labels:
+        app: graceful-app-server-shutdown
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: graceful-app
+          image: graceful-app:1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: APP_MODE
+              value: "server-shutdown"
+            - name: SHUTDOWN_TIMEOUT_SECONDS
+              value: "25"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            failureThreshold: 1

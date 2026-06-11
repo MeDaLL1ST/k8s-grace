@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graceful-app-baseline
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: graceful-app-baseline
+  template:
+    metadata:
+      labels:
+        app: graceful-app-baseline
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: graceful-app
+          image: graceful-app:1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: APP_MODE
+              value: "baseline"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            failureThreshold: 1
