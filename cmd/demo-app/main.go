@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/student/graceful-k8s-shutdown/pkg/shutdown"
+	"github.com/MeDaLL1ST/k8s-grace/pkg/shutdown"
 )
 
 func main() {

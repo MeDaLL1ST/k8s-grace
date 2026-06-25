@@ -1,3 +1,3 @@
-module github.com/student/graceful-k8s-shutdown
+module github.com/MeDaLL1ST/k8s-grace
 
 go 1.23

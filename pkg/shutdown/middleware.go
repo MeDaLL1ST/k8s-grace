@@ -48,7 +48,7 @@ func (m *Manager) TrackAsync(ctx context.Context, name string, fn func(context.C
 	go func() {
 		defer func() {
 			m.finishOperation(opID)
-			m.logger.Event(LogEvent{Event: "async_finished", OpID: opID, ActiveOps: m.ActiveOps()})
+			m.logger.Event(LogEvent{Event: "async_done", OpID: opID, ActiveOps: m.ActiveOps()})
 		}()
 		fn(ctx)
 	}()
